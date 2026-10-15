@@ -27,8 +27,16 @@ export async function POST(req: Request) {
     const planId = rawPlanId === "1" ? "1m" : isExplicitDownsell ? "offer" : rawPlanId
     const email = typeof body?.email === "string" ? body.email.trim() : ""
     const modelName = typeof body?.modelName === "string" ? body.modelName.trim() : ""
-    const flow = modelName.toLowerCase().includes("pierre") ? "gpen-en" : "other"
-    const deliverableUrl = flow === "gpen-en" ? "https://t.me/+UxuYArZGWiBjNjAx" : ""
+    const normalizedModelName = modelName.toLowerCase()
+    const flow = normalizedModelName.includes("beatriz")
+      ? "gpen-en2"
+      : normalizedModelName.includes("pierre")
+        ? "gpen-en"
+        : "other"
+    const deliverableUrl = flow === "gpen-en2" ? "https://t.me/+r1wJP767rDA0Mjcx" : ""
+    // O produto de $9 e o downsell não geram entrega via webhook.
+    // No fluxo gp-en, apenas os planos de $25 e $41 liberam o entregável.
+    const fulfillmentEnabled = flow === "gpen-en" && ["3m", "6m"].includes(planId)
 
     // O preço vem SEMPRE do servidor a partir do id do plano (nunca do cliente)
     const basePlan = getStripePlan(planId === "offer" ? "1m" : planId)
@@ -66,7 +74,8 @@ export async function POST(req: Request) {
         planId: plan.id,
         flow,
         modelName: modelName || "Geovanna Pierre",
-        deliverableUrl: flow === "gpen-en" ? "https://t.me/+UxuYArZGWiBjNjAx" : "",
+        fulfillmentEnabled: String(fulfillmentEnabled),
+        deliverableUrl,
       },
     })
 
