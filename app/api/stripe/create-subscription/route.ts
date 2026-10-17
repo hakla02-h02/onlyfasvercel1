@@ -36,9 +36,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Plano inválido." }, { status: 400 })
     }
 
-    // O plano principal de 1 mês é sempre $9. O $5 fica restrito ao downsell.
-    const plan = isExplicitDownsell
-      ? { ...basePlan, id: "offer", amountCents: 500, productName: `${basePlan.productName} — Downsell` }
+    // A página GP-en exibe $9, mas cobra $5 na Stripe no plano de 1 mês.
+    // Os demais fluxos mantêm o preço oficial do catálogo.
+    const isGpEnOneMonth = flow === "gpen-en" && basePlan.id === "1m"
+    const plan = isExplicitDownsell || isGpEnOneMonth
+      ? {
+          ...basePlan,
+          id: isExplicitDownsell ? "offer" : "gpen-en-1m",
+          amountCents: 500,
+          productName: `${basePlan.productName} — ${isExplicitDownsell ? "Downsell" : "GP-en"}`,
+        }
       : basePlan
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: "E-mail inválido." }, { status: 400 })
