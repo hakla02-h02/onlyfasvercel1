@@ -60,7 +60,7 @@ export default function PrivPage() {
             {offers.map((offer) => (
               <Link
                 key={offer.title}
-                href="/gp-en/offer"
+                href="/priv"
                 className="group flex min-h-[100px] items-center gap-4 rounded-2xl border border-black/[0.04] bg-white px-4 py-4 shadow-[0_5px_18px_rgba(0,0,0,0.10)] transition hover:-translate-y-0.5 hover:shadow-[0_8px_22px_rgba(0,0,0,0.14)]"
               >
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#b29acb] to-[#ecd9ee] text-center text-[10px] font-black uppercase text-white">
@@ -76,7 +76,7 @@ export default function PrivPage() {
             ))}
 
             <Link
-              href="/gp-en/offer"
+              href="/priv"
               className="flex min-h-[76px] items-center justify-between rounded-2xl border-2 border-[#f0008c] px-4 text-[#e50086] shadow-[0_3px_12px_rgba(240,0,140,0.15)] transition hover:bg-[#fff4fb]"
             >
               <span className="text-lg font-extrabold">Enviar presentinho</span>
