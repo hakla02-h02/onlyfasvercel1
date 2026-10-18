@@ -87,6 +87,9 @@ export async function POST(req: NextRequest) {
 
     // 3) Processa de acordo com a gateway ativa
     const externalId = nanoid(16)
+    // Normaliza o valor antes de enviar à gateway para evitar erros de ponto flutuante
+    // em valores como 16,99 (que podem chegar como 16.989999...).
+    amount = Number(amount.toFixed(2))
     const amountInCents = Math.round(amount * 100)
 
     let transactionId: string
