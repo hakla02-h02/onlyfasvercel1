@@ -38,10 +38,10 @@ export default function PrivPage() {
 
   const handleOfferClick = (offer: (typeof offers)[number]) => {
     setSelectedOffer(offer)
-    // No Brasil, mantém o checkout internacional da Stripe; fora do Brasil,
-    // usa a AtenasPay já conectada ao projeto para gerar o PIX.
+    // No Brasil, gera o PIX direto pela AtenasPay, sem pedir e-mail.
+    // Fora do Brasil, usa a Stripe, que solicita o e-mail no checkout.
     const isBrazil = typeof navigator !== "undefined" && /(^|-)br$/i.test(navigator.language)
-    setPaymentMethod(isBrazil ? "stripe" : "atenas")
+    setPaymentMethod(isBrazil ? "atenas" : "stripe")
   }
 
   const closeCheckout = () => {
