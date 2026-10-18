@@ -20,7 +20,8 @@
 
 export const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY ?? ""
 
-export const STRIPE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
+export const STRIPE_PUBLISHABLE_KEY =
+  process.env.STRIPE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
 
 /** true quando alguma das chaves ainda não foi definida no ambiente */
 export const STRIPE_KEYS_MISSING = !STRIPE_SECRET_KEY || !STRIPE_PUBLISHABLE_KEY

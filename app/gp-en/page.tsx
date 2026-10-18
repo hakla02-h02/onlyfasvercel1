@@ -40,7 +40,7 @@ export default async function Page() {
     })),
     medias: [],
     subscriptions: source.locales.en.subscriptions.map((subscription) => {
-      if (subscription.id === "1m") return { ...subscription, price: "$9", amountCents: 900 }
+      if (subscription.id === "1m") return { ...subscription, price: "$9", amountCents: 500 }
       if (subscription.id === "3m") return { ...subscription, benefit: "BONUS: CHAT + VIDEO CALL" }
       if (subscription.id === "6m") return { ...subscription, benefit: "BONUS: 10-MIN CUSTOM VIDEO" }
       return subscription
@@ -68,7 +68,7 @@ export default async function Page() {
           medias: [],
           subscriptions: data.subscriptions.map((subscription) =>
             subscription.id === "1" || subscription.id === "1m"
-              ? { ...subscription, id: "1m", price: "$9", amountCents: 900, badge: "Most popular" }
+              ? { ...subscription, id: "1m", price: "$9", amountCents: 500, badge: "Most popular" }
               : subscription,
           ),
         }}

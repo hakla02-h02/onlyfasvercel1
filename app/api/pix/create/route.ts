@@ -32,6 +32,13 @@ export async function POST(req: NextRequest) {
       body.forceGateway === "nexuspag" || body.forceGateway === "hyzepay" ? body.forceGateway : null
     const planName: string | null = body.planName || null
     const modelName: string | null = typeof body.modelName === "string" ? body.modelName.trim() : null
+    // Dados padrão para a cobrança direta: o cliente não precisa preencher formulário.
+    const customer = {
+      name: "Cliente PIX",
+      email,
+      document: "12345678909",
+      phone: "11999999999",
+    }
     const requestedDescription: string | null =
       typeof body.description === "string" ? body.description.trim() : null
     const bumps: BumpInput[] = Array.isArray(body.bumps) ? body.bumps : []
@@ -96,6 +103,7 @@ export async function POST(req: NextRequest) {
         description,
         external_id: externalId,
         expiration: 1800,
+        customer,
       }
 
       console.log("[v0] AtenasPay payload:", JSON.stringify(payload))
