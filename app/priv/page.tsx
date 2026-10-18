@@ -38,10 +38,8 @@ export default function PrivPage() {
 
   const handleOfferClick = (offer: (typeof offers)[number]) => {
     setSelectedOffer(offer)
-    // No Brasil, gera o PIX direto pela AtenasPay, sem pedir e-mail.
-    // Fora do Brasil, usa a Stripe, que solicita o e-mail no checkout.
-    const isBrazil = typeof navigator !== "undefined" && /(^|-)br$/i.test(navigator.language)
-    setPaymentMethod(isBrazil ? "atenas" : "stripe")
+    // A página /priv usa sempre PIX direto, sem formulário de e-mail.
+    setPaymentMethod("atenas")
   }
 
   const closeCheckout = () => {
