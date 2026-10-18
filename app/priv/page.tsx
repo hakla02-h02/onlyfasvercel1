@@ -49,10 +49,10 @@ export default function PrivPage() {
 
         <div className="px-5 pb-8 pt-12 text-center sm:px-10">
           <h1 className="mx-auto max-w-[620px] text-[27px] font-black leading-[1.42] tracking-[-0.03em] sm:text-[34px]">
-            PROMOÇÃO RELÂMPAGO, VÁLIDA ATÉ AS 23:00H — VAGAS LIMITADAS PARA OS 100 PRIMEIROS
+            ⚡ PROMOÇÃO RELÂMPAGO, VÁLIDO ATÉ AS 23:00H 🔥 ⏰ ⌛ — VAGAS LIMITADAS PARA OS 100 PRIMEIROS 💎
           </h1>
-          <p className="mt-3 text-[22px] font-extrabold leading-tight sm:text-[29px]">PACOTE VIP COM 60% OFF + BÔNUS</p>
-          <p className="mt-2 text-[19px] font-bold sm:text-[25px]">Especial no primeiro álbum</p>
+          <p className="mt-3 text-[22px] font-extrabold leading-tight sm:text-[29px]">PACOTE VIP com 60% OFF 💎 🎁 + Bônus</p>
+          <p className="mt-2 text-[19px] font-bold sm:text-[25px]">especial NO PRIMEIRO ÁLBUM! 📸</p>
           <p className="mt-5 text-[25px] font-extrabold sm:text-[31px]">Conteúdo novo todos os dias</p>
           <p className="mt-1 text-lg">Fotos todos os dias</p>
 
