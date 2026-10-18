@@ -61,17 +61,16 @@ export default function PrivPage() {
               <Link
                 key={offer.title}
                 href="/priv"
-                className="group flex min-h-[100px] items-center gap-4 rounded-2xl border border-black/[0.04] bg-white px-4 py-4 shadow-[0_5px_18px_rgba(0,0,0,0.10)] transition hover:-translate-y-0.5 hover:shadow-[0_8px_22px_rgba(0,0,0,0.14)]"
+                className="group flex min-h-[76px] items-center gap-3 rounded-2xl border border-black/[0.04] bg-white px-3.5 py-2.5 shadow-[0_5px_18px_rgba(0,0,0,0.10)] transition hover:-translate-y-0.5 hover:shadow-[0_8px_22px_rgba(0,0,0,0.14)]"
               >
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#b29acb] to-[#ecd9ee] text-center text-[10px] font-black uppercase text-white">
                   {offer.accent}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-base font-extrabold leading-tight sm:text-lg">{offer.title}</p>
-                  <p className="mt-1 text-sm font-semibold leading-snug sm:text-base">{offer.description}</p>
-                  {offer.oldPrice && <p className="mt-1 text-sm font-semibold">De {offer.oldPrice} por uma oferta especial</p>}
+                  <p className="text-[15px] font-bold leading-snug sm:text-base">{offer.title} <span className="font-semibold">{offer.description}</span></p>
+                  {offer.oldPrice && <p className="mt-0.5 text-[13px] font-semibold leading-snug">De {offer.oldPrice} por uma oferta especial</p>}
                 </div>
-                <div className="shrink-0 text-right text-base font-black sm:text-lg">{offer.price}</div>
+                <div className="shrink-0 text-right text-[15px] font-bold sm:text-base">{offer.price}</div>
               </Link>
             ))}
 
