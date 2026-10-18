@@ -37,8 +37,8 @@ export default function PrivPage() {
   return (
     <main className="min-h-screen bg-[#f3f6fc] px-4 py-7 text-[#07142f]">
       <section className="mx-auto w-full max-w-[720px] overflow-hidden rounded-[28px] bg-white shadow-sm">
-        <div className="relative h-[165px] overflow-hidden bg-[#d8dce4]">
-          <img src={coverImage} alt="Capa do perfil" className="h-full w-full object-cover object-top" />
+        <div className="relative h-[150px] overflow-hidden bg-[#d8dce4]">
+          <img src={coverImage} alt="Capa do perfil" className="block h-full w-full object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10" />
           <img
             src={profileImage}
@@ -47,14 +47,14 @@ export default function PrivPage() {
           />
         </div>
 
-        <div className="px-5 pb-8 pt-12 text-center sm:px-10">
-          <h1 className="mx-auto max-w-[620px] text-[27px] font-black leading-[1.42] tracking-[-0.03em] sm:text-[34px]">
+        <div className="px-5 pb-7 pt-11 text-center font-sans sm:px-10">
+          <h1 className="mx-auto max-w-[620px] text-[21px] font-semibold leading-[1.3] tracking-[-0.02em] sm:text-[25px]">
             ⚡ PROMOÇÃO RELÂMPAGO, VÁLIDO ATÉ AS 23:00H 🔥 ⏰ ⌛ — VAGAS LIMITADAS PARA OS 100 PRIMEIROS 💎
           </h1>
-          <p className="mt-3 text-[22px] font-extrabold leading-tight sm:text-[29px]">PACOTE VIP com 60% OFF 💎 🎁 + Bônus</p>
-          <p className="mt-2 text-[19px] font-bold sm:text-[25px]">especial NO PRIMEIRO ÁLBUM! 📸</p>
-          <p className="mt-5 text-[25px] font-extrabold sm:text-[31px]">Conteúdo novo todos os dias</p>
-          <p className="mt-1 text-lg">Fotos todos os dias</p>
+          <p className="mt-3 text-[18px] font-semibold leading-tight sm:text-[22px]">PACOTE VIP com 60% OFF 💎 🎁 + Bônus</p>
+          <p className="mt-2 text-[17px] font-semibold sm:text-[20px]">especial NO PRIMEIRO ÁLBUM! 📸</p>
+          <p className="mt-4 text-[21px] font-semibold sm:text-[25px]">Conteúdo novo todos os dias</p>
+          <p className="mt-1 text-base font-normal">Fotos todos os dias</p>
 
           <div className="mt-7 space-y-5 text-left">
             {offers.map((offer) => (
