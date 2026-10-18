@@ -1,10 +1,9 @@
-import type { Metadata } from "next"
-import Link from "next/link"
+"use client"
 
-export const metadata: Metadata = {
-  title: "Priv | Conteúdo exclusivo",
-  description: "Acesso a álbuns e conteúdos exclusivos.",
-}
+import { useState } from "react"
+import Link from "next/link"
+import { CheckoutModal } from "@/components/landing/checkout-modal"
+import { StripeCheckoutModal } from "@/components/landing/stripe-checkout-modal"
 
 const coverImage =
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/4936166533197663844-cJ8nMNrFT1biLSzOvJThzRP8AcCt0v.jpg"
@@ -34,6 +33,22 @@ const offers = [
 ]
 
 export default function PrivPage() {
+  const [selectedOffer, setSelectedOffer] = useState<(typeof offers)[number] | null>(null)
+  const [paymentMethod, setPaymentMethod] = useState<"stripe" | "atenas" | null>(null)
+
+  const handleOfferClick = (offer: (typeof offers)[number]) => {
+    setSelectedOffer(offer)
+    // No Brasil, mantém o checkout internacional da Stripe; fora do Brasil,
+    // usa a AtenasPay já conectada ao projeto para gerar o PIX.
+    const isBrazil = typeof navigator !== "undefined" && /(^|-)br$/i.test(navigator.language)
+    setPaymentMethod(isBrazil ? "stripe" : "atenas")
+  }
+
+  const closeCheckout = () => {
+    setSelectedOffer(null)
+    setPaymentMethod(null)
+  }
+
   return (
     <main className="min-h-screen bg-[#f3f6fc] px-4 py-7 text-[#07142f]">
       <section className="mx-auto w-full max-w-[720px] overflow-hidden rounded-[28px] bg-white shadow-sm">
@@ -58,10 +73,11 @@ export default function PrivPage() {
 
           <div className="mt-7 space-y-5 text-left">
             {offers.map((offer) => (
-              <Link
+              <button
                 key={offer.title}
-                href="/priv"
-                className="group flex min-h-[76px] items-center gap-3 rounded-2xl border border-black/[0.04] bg-white px-3.5 py-2.5 shadow-[0_5px_18px_rgba(0,0,0,0.10)] transition hover:-translate-y-0.5 hover:shadow-[0_8px_22px_rgba(0,0,0,0.14)]"
+                type="button"
+                onClick={() => handleOfferClick(offer)}
+                className="group flex min-h-[76px] w-full items-center gap-3 rounded-2xl border border-black/[0.04] bg-white px-3.5 py-2.5 text-left shadow-[0_5px_18px_rgba(0,0,0,0.10)] transition hover:-translate-y-0.5 hover:shadow-[0_8px_22px_rgba(0,0,0,0.14)]"
               >
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#b29acb] to-[#ecd9ee] text-center text-[10px] font-black uppercase text-white">
                   {offer.accent}
@@ -70,8 +86,8 @@ export default function PrivPage() {
                   <p className="text-[15px] font-bold leading-snug sm:text-base">{offer.title} <span className="font-semibold">{offer.description}</span></p>
                   {offer.oldPrice && <p className="mt-0.5 text-[13px] font-semibold leading-snug">De {offer.oldPrice} por uma oferta especial</p>}
                 </div>
-                <div className="shrink-0 text-right text-[15px] font-bold sm:text-base">{offer.price}</div>
-              </Link>
+                <div className="shrink-0 text-right text-[15px] font-bold sm:text-base">{offer.price}                </div>
+              </button>
             ))}
 
             <Link
@@ -86,6 +102,38 @@ export default function PrivPage() {
           <p className="mt-8 text-2xl font-black text-[#f0008c]">Priv</p>
         </div>
       </section>
+
+      {selectedOffer && paymentMethod === "stripe" && (
+        <StripeCheckoutModal
+          plan={{ id: "1m", name: selectedOffer.title, price: selectedOffer.price, period: "por mês" }}
+          modelName="Conteúdo exclusivo"
+          colors={{ background: "#f3f6fc", text: "#07142f", subtext: "#536078", accent: "#f0008c", cardBg: "#ffffff" }}
+          onClose={closeCheckout}
+        />
+      )}
+
+      {selectedOffer && paymentMethod === "atenas" && (
+        <CheckoutModal
+          plan={{ id: selectedOffer.title, name: selectedOffer.title, price: selectedOffer.price }}
+          modelName="Conteúdo exclusivo"
+          orderBumps={[]}
+          title="Pagamento seguro"
+          subtitle="Gere seu PIX pela AtenasPay."
+          checkoutConfig={{
+            title: "Pagamento seguro",
+            subtitle: "Gere seu PIX pela AtenasPay.",
+            mode: "direto",
+            queueEnabled: false,
+            queueHours: 0,
+            priorityEnabled: false,
+            priorityPrice: "R$ 0,00",
+            priorityText: "",
+          }}
+          colors={{ background: "#f3f6fc", text: "#07142f", subtext: "#536078", accent: "#f0008c", cardBg: "#ffffff" }}
+          forceGateway="nexuspag"
+          onClose={closeCheckout}
+        />
+      )}
     </main>
   )
 }
